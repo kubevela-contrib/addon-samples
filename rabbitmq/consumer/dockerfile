@@ -13,4 +13,4 @@ ENV PASSWORD=admin
 ENV HOST=localhost
 ENV PORT=5672
 
-CMD ["sh", "-c", "/app/consumer", "-user", "$USER", "-password", "$PASSWORD", "-host", "$HOST", "-port", "$PORT"]
+CMD /app/consumer -user=$USER -password=$PASSWORD -host=$HOST -port=$PORT
