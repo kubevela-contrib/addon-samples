@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"context"
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -19,7 +20,15 @@ func failOnError(err error, msg string) {
 }
 
 func main() {
-	conn, err := amqp.Dial("amqp://username:password@localhost:5672/")
+	var username, password, host, port string
+	flag.StringVar(&username, "user", "admin", "a string")
+	flag.StringVar(&password, "password", "admin", "a string")
+	flag.StringVar(&host, "host", "localhost", "a string")
+	flag.StringVar(&port, "port", "5672", "a string")
+
+	flag.Parse()
+
+	conn, err := amqp.Dial("amqp://" + username + ":" + password + "@" + host + ":" + port + "/")
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
 
