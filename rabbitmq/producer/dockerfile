@@ -1,0 +1,16 @@
+FROM golang:1.19-alpine3.17
+
+RUN mkdir /app
+
+ADD . /app
+
+WORKDIR /app
+
+RUN go build -o producer
+
+ENV USER=admin
+ENV PASSWORD=admin
+ENV HOST=localhost
+ENV PORT=5672
+
+CMD /app/producer -user=$USER -password=$PASSWORD -host=$HOST -port=$PORT
